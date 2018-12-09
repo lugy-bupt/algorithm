@@ -1,1 +1,1 @@
-Record some algorithm exercise
+Record some algorithm exercises

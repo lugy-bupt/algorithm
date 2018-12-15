@@ -1,0 +1,45 @@
+/**
+ * Definition for a binary tree node.
+ * type TreeNode struct {
+ *     Val int
+ *     Left *TreeNode
+ *     Right *TreeNode
+ * }
+ */
+func leafSimilar(root1 *TreeNode, root2 *TreeNode) bool {
+    list1 := trans(root1)
+    list2 := trans(root2)
+    
+    if len(list1) == len(list2) {
+        if len(list1) == 0 {return true}
+        
+        for i := 0; i < len(list1); i++ {  
+            if list1[i].Val != list2[i].Val {return false} 
+        }
+        
+        return true
+    } else {
+        return false
+    }
+}
+
+func trans(root *TreeNode) []*TreeNode {
+    result := make([]*TreeNode, 0)
+    
+    if root == nil {return result}
+    
+    if root.Left == nil && root.Right == nil {
+        result = append(result, root)
+        return result
+    }
+    
+    if root.Left != nil {
+        result = append(result, trans(root.Left)...)
+    }
+    
+    if(root.Right != nil){
+        result = append(result, trans(root.Right)...)
+    }
+    
+    return result
+}

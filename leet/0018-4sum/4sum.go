@@ -1,62 +1,49 @@
-class Solution {
-    public List<List<Integer>> fourSum(int[] nums, int target) {
-        ArrayList<List<Integer>> result = new ArrayList<>();
-        
-        if(nums == null || nums.length < 4) return result;
-        
-        Arrays.sort(nums);
-        
-        for(int i = 0; i < nums.length; ){
-            
-            for(int j = i + 1; j < nums.length;){
-                
-                int k = j + 1;
-                int l = nums.length - 1;
-                
-                int x = target - nums[i] - nums[j];
-                
-                while(k < l){
-                    
-                    int r = nums[k] + nums[l];
-                    
-                    if(r == x){
-                        ArrayList<Integer> list = new ArrayList<>();
-                        list.add(nums[i]);
-                        list.add(nums[j]);
-                        list.add(nums[k]);
-                        list.add(nums[l]);
-                        
-                        result.add(list);
-                        
-                        // ++k
-                        while(k + 1 < l && nums[k] == nums[k + 1]) k += 1;
-                        k += 1;
-                        
-                        // --l
-                        while(k < l - 1 && nums[l] == nums[l - 1]) l -= 1;
-                        l -= 1;
-                    }else if(r > x){
-                        // -- l
-                        while(k < l - 1 && nums[l] == nums[l - 1]) l -= 1;
-                        l -= 1;
-                    }else{
-                        // ++ k
-                        while(k + 1 < l && nums[k] == nums[k + 1]) k += 1;
-                        k += 1;
-                    }
+import (
+    "sort"
+)
+
+func fourSum(nums []int, target int) [][]int {
+    result := make([][]int, 0)
+    
+    if nums == nil || len(nums) < 4 {return result}
+    
+    sort.Ints(nums)
+    length := len(nums)
+    
+    for i := 0; i < length; i++ {
+        for l := i + 1; l < length; l++ {
+            for j, k:= l + 1, length - 1; j < k; {
+                sum := nums[j]+ nums[k] + nums[i] + nums[l]
+                if sum == target {
+                    r1 := make([]int, 4)
+                    r1[0] = nums[i]
+                    r1[1] = nums[l]
+                    r1[2] = nums[j]
+                    r1[3] = nums[k]
+                    result = append(result, r1)
+
+                    //j++
+                    for j + 1 < k && nums[j] == nums[j + 1] {j++}
+                    j++
+                    //k--
+                    for j < k - 1 && nums[k] == nums[k - 1] {k--}
+                    k--
+                } else if (sum > target){
+                    // k--
+                    for j < k - 1 && nums[k] == nums[k - 1] {k--}
+                    k--
+                } else{
+                    // j++
+                    for j + 1 < k && nums[j] == nums[j + 1] {j++}
+                    j++
                 }
-                
-                // ++ j;
-                
-                while(j + 1 < nums.length && nums[j] == nums[j + 1]) j += 1;
-                j += 1;
             }
             
-            // ++ i;
-            while(i + 1 < nums.length && nums[i] == nums[i + 1]) i += 1;
-            i += 1;
+            for l + 1 < length && nums[l] == nums[l + 1] {l++}
         }
         
-        return result;
+        for i + 1 < length && nums[i] == nums[i + 1] {i++}
     }
+    
+    return result
 }

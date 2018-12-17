@@ -1,8 +1,7 @@
 func isValidSudoku(board [][]byte) bool {
-	for i := 0; i < 9; i++ {
+    for i := 0; i < 9; i++ {
+        table := make(map[byte]int)
 		for j := 0; j < 9; j++ {
-			table := make(map[byte]int)
-
 			if board[i][j] != '.' {
 				pos := board[i][j]
 				_, ok := table[pos]
@@ -51,5 +50,5 @@ func isValidSudoku(board [][]byte) bool {
 		}
 	}
 
-	return true
+	return true    
 }

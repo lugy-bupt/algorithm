@@ -23,7 +23,7 @@ func permute(nums []int) [][]int {
 						t = append(t, temp[0:k]...)
 					}
 					t = append(t, nums[i])
-					if k < len(last) {
+					if k < len(temp) {
 						t = append(t, temp[k:]...)
 					}
 					r = append(r, t)

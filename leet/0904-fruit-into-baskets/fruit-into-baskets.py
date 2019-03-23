@@ -17,12 +17,15 @@ class Solution:
             return ret
         
         ret = 0
-        
-        for i in range(len(tree)):
+        i = 0
+        while i < len(tree):
             if len(tree) - i <= ret:
-                break
-                
+                break    
             ret = max(ret, getFruit(i))
+            
+            while i + 1 < len(tree) and tree[i] == tree[i + 1]:
+                i += 1
+            i += 1
             
         return ret
             

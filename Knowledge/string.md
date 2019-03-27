@@ -36,6 +36,36 @@
 
 当表达式扫描结束时，栈里的就是中序表达式运算的最终结果。
   
-示例代码:
+这个简单例子支持0-9数字的前序表达式计算
+
+    class Solution:
+        def calculate(self, s: str) -> int:
+            if s == "" : return 0
+
+            stack = []
+
+            def cal(op, a, b) -> int:
+                if op == "+":
+                    return a + b
+                elif op == "-":
+                    return a - b
+                elif op == "*":
+                    return a * b
+                else:
+                    return a // b
+
+            for i in range(len(s) - 1, -1, -1):
+                if s[i].isdigit():
+                    stack.append(int(s[i]))
+                else:
+                    b = stack.pop()
+                    a = stack.pop()
+                    stack.append(cal(s[i], a, b))
+            return stack[-1]
+            
+            
+    Input : "-2*34"
+    Output: 10
+         
 
 ### 中序转前序表达式算法

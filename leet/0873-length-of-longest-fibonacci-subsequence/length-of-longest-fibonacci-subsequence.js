@@ -4,7 +4,8 @@
  */
 var lenLongestFibSubseq = function(A) {
     let m = A.length
-    let mp = new Map()
+    let mp = new Array(m)
+    for (let i = 0; i < m; i++) mp[i] = new Array(m).fill(2)
 
     let bSearch = function(s, e, t){
         while (s < e){
@@ -16,17 +17,17 @@ var lenLongestFibSubseq = function(A) {
         return t == A[s] ? s : - 1
     }
 
-    for (let i = 1; i < m; i++){
+    let rt = 0
+    for (let i = 2; i < m; i++){
         for (let j = i - 1; j >= 0; j--){
             let r = A[i] - A[j]
             let idx = bSearch(0, j - 1, r)
-            mp.set(j +"-" + i, mp.get(idx + "-" + j) + 1 || 2)
+            if (idx != -1){
+                mp[i][j] = Math.max(mp[i][j], mp[j][idx] + 1)
+                rt = Math.max(rt, mp[i][j])
+            }
+            
         }
     }
-
-    let rt = 0
-    for (let v of mp.values()) 
-        rt = Math.max(rt, v)
-
     return rt < 3 ? 0 : rt
 };

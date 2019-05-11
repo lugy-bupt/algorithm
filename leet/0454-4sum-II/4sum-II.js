@@ -8,21 +8,22 @@
 var fourSumCount = function(A, B, C, D) {
     let ret = 0
     let mp = new Map()
-    for (let i = 0; i < D.length; i++) {
-        if (mp.has(D[i])) {
-            mp.set(D[i], mp.get(D[i]) + 1)
-        } else{
-            mp.set(D[i], 1)
+    for (let j = 0; j < C.length; j++) {
+        for (let i = 0; i < D.length; i++) {
+            let key = C[j] + D[i]
+            if (mp.has(key)) {
+                mp.set(key, mp.get(key) + 1)
+            } else{
+                mp.set(key, 1)
+            }
         }
     }
 
     for(let i = 0; i < A.length; i++){
         for(let j = 0; j < B.length; j++){
-            for(let k = 0; k < C.length; k++){
-                let x = 0 - (A[i] + B[j] + C[k])
-                if (mp.has(x)) {
-                    ret += mp.get(x)
-                }
+            let key = 0 - (A[i] + B[j])
+            if (mp.has(key)) {
+                ret += mp.get(key)
             }
         }
     }

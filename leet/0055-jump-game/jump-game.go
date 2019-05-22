@@ -5,7 +5,7 @@ func canJump(nums []int) bool {
 	result := true
 	lastIndex := 0
 	for i, num := range nums {
-        if num == 0 && i < len(nums) - 1{
+                if num == 0 && i < len(nums) - 1{
 			singleResult := false
 			for j := i - 1; j >= lastIndex; j-- {
 				step := i - j
